@@ -1,7 +1,7 @@
 import google.generativeai as genai
 from google import genai
 # 🔐 ADD YOUR API KEY HERE
-client=genai.Client(api_key="AIzaSyBnm2wnDc69mgHFmBgkIMlaTsN37P7ON50")
+client=genai.Client(api_key="YOUR_API_KEY")
 
 
 
