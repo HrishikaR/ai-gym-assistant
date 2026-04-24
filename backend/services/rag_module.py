@@ -26,7 +26,7 @@ def create_vector_db():
 
     docs = splitter.split_documents(documents)
 
-    embeddings = HuggingFaceEmbeddings()
+    embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
 
     db = FAISS.from_documents(docs, embeddings)
     db.save_local(DB_PATH)
@@ -36,7 +36,7 @@ def create_vector_db():
 
 # 🔥 RETRIEVE CONTEXT ONLY (NO LLM HERE)
 def get_rag_context(query):
-    embeddings = HuggingFaceEmbeddings()
+    embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
 
     db = FAISS.load_local(
         DB_PATH,
