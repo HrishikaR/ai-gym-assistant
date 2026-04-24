@@ -10,8 +10,20 @@ app = Flask(__name__)
 CORS(app)
 
 
+# ✅ Always working modules
+app.register_blueprint(diet_bp)
+app.register_blueprint(chat_bp)
+app.register_blueprint(habit_bp)
 
-app.register_blueprint(pose_bp)
+# 🔥 TRY to load pose module (safe)
+try:
+    from routes.pose_routes import pose_bp
+    app.register_blueprint(pose_bp)
+    print("Pose module loaded ✅")
+except Exception as e:
+    print("Pose module skipped (cloud env) ❌:", e)
+
+
 app.register_blueprint(chat_bp)
 
 app.register_blueprint(diet_bp)
