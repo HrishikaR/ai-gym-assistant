@@ -1,7 +1,11 @@
-import cv2
+
 import mediapipe as mp
 import numpy as np
-
+try:
+    import cv2
+except:
+    cv2 = None
+    
 mp_pose = mp.solutions.pose
 mp_drawing = mp.solutions.drawing_utils
 
@@ -49,6 +53,8 @@ def get_workout_plan(score):
 
 # 🔥 MAIN STREAM FUNCTION
 def generate_frames():
+    if cv2 is None:
+        return
     cap = cv2.VideoCapture(0)
 
     counter = 0
