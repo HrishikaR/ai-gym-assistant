@@ -230,13 +230,6 @@ To build an intelligent, integrated fitness assistant that improves:
 
 ---
 
-## 👩‍💻 Author
-
-**Hrishika R**
-B.E. Information Science & Engineering
-
----
-
 ## 📌 Conclusion
 
 This project demonstrates the integration of:
