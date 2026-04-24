@@ -9,8 +9,12 @@ BASE_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
 DATA_PATH = os.path.join(BASE_DIR, "rag_data")
 DB_PATH = os.path.join(BASE_DIR, "vector_store")
 
+# 🔥 GLOBAL CACHE (no logic change)
+_embeddings = None
+_db = None
 
-# 🔥 CREATE VECTOR DB (RUN ONCE)
+
+# 🔥 CREATE VECTOR DB (UNCHANGED)
 def create_vector_db():
     documents = []
 
@@ -31,20 +35,21 @@ def create_vector_db():
     db = FAISS.from_documents(docs, embeddings)
     db.save_local(DB_PATH)
 
-    print("✅ Vector DB Created")
 
-
-# 🔥 RETRIEVE CONTEXT ONLY (NO LLM HERE)
+# 🔥 RETRIEVE CONTEXT (SAME LOGIC, OPTIMIZED LOAD)
 def get_rag_context(query):
-    embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+    global _embeddings, _db
 
-    db = FAISS.load_local(
-        DB_PATH,
-        embeddings,
-        allow_dangerous_deserialization=True
-    )
+    if _db is None:
+        _embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
 
-    docs = db.similarity_search(query, k=3)
+        _db = FAISS.load_local(
+            DB_PATH,
+            _embeddings,
+            allow_dangerous_deserialization=True
+        )
+
+    docs = _db.similarity_search(query, k=3)
 
     context = "\n".join([doc.page_content for doc in docs])
 
