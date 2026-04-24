@@ -9,5 +9,4 @@ google-generativeai
 pypdf
 mediapipe
 langchain-community
-langchain_text_splitters
-os
+
