@@ -7,5 +7,4 @@ faiss-cpu
 sentence-transformers
 google-generativeai
 pypdf
-cv2
 mediapipe
