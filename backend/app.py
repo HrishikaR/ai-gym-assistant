@@ -5,7 +5,7 @@ from routes.chatbot_routes import chat_bp
 from routes.diet_routes import diet_bp
 from routes.habit_routes import habit_bp
 from routes.pose_routes import pose_bp
-
+import os
 app = Flask(__name__)
 CORS(app)
 
@@ -21,5 +21,8 @@ app.register_blueprint(habit_bp)
 def home():
     return {"message": "AI Gym Assistant Backend Running"}
 
-if __name__ == '__main__':
-    app.run(debug=True)
+import os
+
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))
+    app.run(host="0.0.0.0", port=port)
